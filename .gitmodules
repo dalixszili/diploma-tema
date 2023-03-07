@@ -1,3 +1,6 @@
 [submodule "frontend"]
 	path = frontend
 	url = https://github.com/dalixszili/diploma-tema-client
+[submodule "frontend-tdk"]
+	path = frontend-tdk
+	url = https://github.com/dalixszili/diploma-tema-client
