@@ -1,10 +1,18 @@
-import User from "../models/UserModel.js";
-import argon2 from "argon2";
+import { Users as User } from "../models/associations/ProjectAssociations.js";
 
+import argon2 from "argon2";
+import { Sequelize } from "sequelize";
+
+const Op = Sequelize.Op;
 // Get Users
 export const getUsers = async (req, res) => {
   try {
-    const response = await User.findAll();
+    const response = await User.findAll({
+      where: {
+        role: { [Op.ne]: 1 },
+        deleted: 0,
+      },
+    });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
@@ -17,6 +25,7 @@ export const getUserById = async (req, res) => {
     const response = await User.findOne({
       where: {
         id: req.params.id,
+        deleted: 0,
       },
     });
     res.status(200).json(response);
@@ -69,6 +78,7 @@ export const updateUser = async (req, res) => {
   const user = await User.findOne({
     where: {
       id: req.params.id,
+      deleted: 0,
     },
   });
   if (!user) return res.status(404).json({ msg: "User not found ! " });
@@ -83,7 +93,6 @@ export const updateUser = async (req, res) => {
     employment = "",
     job_title = "",
   } = req.body;
-  const data = req.body;
 
   try {
     await User.update(
@@ -115,18 +124,24 @@ export const deleteUser = async (req, res) => {
   const user = await User.findOne({
     where: {
       id: req.params.id,
+      deleted: 0,
     },
   });
   if (!user) return res.status(404).json({ msg: "User not found ! " });
 
   try {
-    await User.destroy({
-      where: {
-        id: user.id,
+    await User.update(
+      {
+        deleted: 1,
       },
-    });
+      {
+        where: {
+          id: user.id,
+        },
+      }
+    );
     res.status(200).json({ msg: "User deleted successfully !" });
   } catch (error) {
-    res.status(400).json({ mgs: error.message });
+    res.status(400).json({ msg: error.message });
   }
 };

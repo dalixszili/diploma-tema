@@ -9,7 +9,20 @@ const db = new Sequelize(
   {
     host: "localhost",
     dialect: "mysql",
+    dialectOptions: {
+      useUTC: false, //for reading from database
+      dateStrings: true,
+      typeCast: true,
+    },
+    timezone: "Europe/Bucharest",
   }
 );
+// db.authenticate()
+//   .then(() => {
+//     console.log("Connection to Database has been established successfully.");
+//   })
+//   .catch((error) => {
+//     console.error("Unable to connect to the database: ", error);
+//   });
 
 export default db;

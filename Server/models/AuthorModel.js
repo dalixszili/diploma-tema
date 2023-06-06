@@ -3,8 +3,8 @@ import db from "../config/Database.js";
 
 const { DataTypes } = Sequelize;
 
-const Users = db.define(
-  "tdk_users",
+const Authors = db.define(
+  "tdk_authors",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -17,65 +17,50 @@ const Users = db.define(
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [3, 100],
+        len: [3, 150],
       },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         notEmpty: true,
         isEmail: true,
       },
     },
-    password: {
+    university: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    university: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     department: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     profile: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     year: {
-      type: DataTypes.INTEGER(2),
-      allowNull: false,
-    },
-    role: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
-      defaultValue: 2,
     },
-    employment: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    job_title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+
     deleted: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
       defaultValue: 0,
     },
   },
-  {
-    timestamps: false,
-    freezeTableName: true,
-    tableName: "tdk_users",
-  }
+  { timestamps: false, freezeTableName: true, tableName: "tdk_authors" }
 );
 
-export default Users;
+export default Authors;
