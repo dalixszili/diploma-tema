@@ -84,7 +84,13 @@ export const updateSponsor = async (req, res) => {
     website_url = sponsor.website_url,
     order = sponsor.order,
   } = req.body;
-  const logo_file = await req.file.filename;
+
+  let logo_file = "";
+  if (req.file) {
+    logo_file = await req.file.filename;
+  } else {
+    logo_file = sponsor.filename;
+  }
 
   // A kiválasztott szponzor adatainak frissitése
   try {

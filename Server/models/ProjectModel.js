@@ -23,21 +23,28 @@ const Projects = db.define(
 
     abstract: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      // allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
     project_file: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    project_file_saved: {
+      type: DataTypes.STRING,
+      // allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
     keywords: {
       type: DataTypes.TEXT("tiny"),
-      allowNull: false,
+      // allowNull: false,
       validate: {
         notEmpty: true,
       },

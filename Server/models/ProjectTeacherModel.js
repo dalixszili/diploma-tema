@@ -9,11 +9,16 @@ const ProjectTeachers = db.define(
     project_id: {
       type: DataTypes.INTEGER,
     },
-    author_id: {
+    teacher_id: {
       type: DataTypes.INTEGER,
     },
-    konfirmed: {
-      type: DataTypes.Integer,
+    confirmed: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    deleted: {
+      type: DataTypes.INTEGER(1),
+      allowNull: false,
       defaultValue: 0,
     },
   },

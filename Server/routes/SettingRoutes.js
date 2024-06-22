@@ -2,7 +2,7 @@ import express from "express";
 import {
   createSettings,
   deleteSettings,
-  getActiveYear,
+  getActiveSettings,
   getSettings,
   getSettingsById,
   setActiveById,
@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 router.get("/settings", getSettings);
-router.get("/activeyear", getActiveYear);
+router.get("/activesettings", getActiveSettings);
 router.get("/settings/:id", getSettingsById);
 router.post("/newsettings", createSettings);
 router.patch("/updatesettings/:id", updateSettings);

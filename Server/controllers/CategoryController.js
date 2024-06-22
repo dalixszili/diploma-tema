@@ -7,6 +7,7 @@ export const getCategories = async (req, res) => {
       where: {
         deleted: 0,
       },
+      attributes: ["id", "name"],
     });
     res.status(200).json(response);
   } catch (error) {

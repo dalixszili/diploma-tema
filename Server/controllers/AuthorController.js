@@ -12,7 +12,7 @@ export const createAuthor = async (req, res) => {
   //   Ha nincs akkor most regisztráljuk
   // if (!existingauthor) {
   try {
-    await Authors.create({
+    const response = await Authors.create({
       name: name,
       email: email,
       university: university,
@@ -20,7 +20,9 @@ export const createAuthor = async (req, res) => {
       profile: profile,
       year: year,
     });
-    res.status(200).json({ msg: "Szerző sikeresen hozzáadva !" });
+    res
+      .status(200)
+      .json({ msg: "Szerző sikeresen hozzáadva !", id: response.id });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }

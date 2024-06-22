@@ -17,17 +17,24 @@ export const getSettings = async (req, res) => {
   }
 };
 
-export const getActiveYear = async (req, res) => {
+export const getActiveSettings = async (req, res) => {
   try {
     const response = await Settings.findOne({
       where: {
         deleted: 0,
         is_active: 1,
       },
-      attributes: ["year"],
+      attributes: [
+        "registration_date",
+        "abstract_date",
+        "project_date",
+        "register_project_date",
+        "curr_year",
+      ],
     });
+
     if (!response) {
-      return res.status(404).json({ msg: "Az év nem található !" });
+      return res.status(404).json({ msg: "Nem található aktív beállítás !" });
     }
     res.status(200).json(response);
   } catch (error) {
@@ -75,6 +82,7 @@ export const createSettings = async (req, res) => {
     registration_date,
     abstract_date,
     project_date,
+    register_project_date,
     curr_year,
   } = req.body;
   try {
@@ -83,6 +91,7 @@ export const createSettings = async (req, res) => {
       registration_date: registration_date,
       abstract_date: abstract_date,
       project_date: project_date,
+      register_project_date: register_project_date,
       curr_year: curr_year,
     });
     res.status(200).json({ msg: "Beállítások sikeresen hozzáadva !" });
@@ -105,6 +114,7 @@ export const updateSettings = async (req, res) => {
     registration_date,
     abstract_date,
     project_date,
+    register_project_date,
     curr_year,
   } = req.body;
   try {
@@ -114,6 +124,7 @@ export const updateSettings = async (req, res) => {
         registration_date: registration_date,
         abstract_date: abstract_date,
         project_date: project_date,
+        register_project_date: register_project_date,
         curr_year: curr_year,
       },
       {

@@ -17,7 +17,7 @@ export const getMenusByOrder = async (req, res) => {
   }
 };
 
-// Menü lekérése megjelenési sorrend szerint
+// Menü és oldal lekérése megjelenési sorrend szerint
 export const getMenusByOrderWithPages = async (req, res) => {
   try {
     const response = await Menus.findAll({
@@ -29,9 +29,9 @@ export const getMenusByOrderWithPages = async (req, res) => {
         {
           model: Pages,
           as: "page",
-          // where: {
-          //   deleted: 0,
-          // },
+          where: {
+            deleted: 0,
+          },
         },
       ],
     });
@@ -40,6 +40,7 @@ export const getMenusByOrderWithPages = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+
 // Egy menü adatainak lekérése
 export const getMenuById = async (req, res) => {
   try {

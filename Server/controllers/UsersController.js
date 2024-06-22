@@ -2,6 +2,10 @@ import { Users as User } from "../models/associations/ProjectAssociations.js";
 
 import argon2 from "argon2";
 import { Sequelize } from "sequelize";
+import {
+  JudgeCategory,
+  Categories,
+} from "../models/associations/JudgeCategoryAssociation.js";
 
 const Op = Sequelize.Op;
 // Get Users
@@ -45,7 +49,6 @@ export const createUser = async (req, res) => {
     department,
     profile,
     year,
-    role,
     employment,
     job_title,
   } = req.body;
@@ -63,7 +66,6 @@ export const createUser = async (req, res) => {
       department: department,
       profile: profile,
       year: year,
-      role: role,
       employment: employment,
       job_title: job_title,
     });
@@ -141,6 +143,33 @@ export const deleteUser = async (req, res) => {
       }
     );
     res.status(200).json({ msg: "User deleted successfully !" });
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+};
+
+// Új zsűri hozzáadás
+export const addJudgeToCategory = async (req, res) => {
+  const { category_id, judge_id } = req.body;
+
+  const user = await User.findOne({
+    where: { deleted: 0, id: judge_id },
+  });
+  if (!user)
+    return res.status(404).json({ msg: "Felhasználó nem található !" });
+
+  const category = await Categories.findOne({
+    where: { deleted: 0, id: category_id },
+  });
+  if (!category)
+    return res.status(404).json({ msg: "A kategória nem található !" });
+
+  try {
+    await JudgeCategory.create({
+      category_id: category_id,
+      judge_id: judge_id,
+    });
+    res.status(201).json({ msg: "Zsűri sikeresen hozzáadva !" });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }

@@ -11,17 +11,21 @@ export const createTeacher = async (req, res) => {
   // });
   //   Ha nincs akkor most regisztráljuk
   // if (!existingteacher) {
+
   try {
-    await Teachers.create({
+    const response = await Teachers.create({
       name: name,
       email: email,
       employment: employment,
       job_title: job_title,
     });
-    res.status(200).json({ msg: "Tanár sikeresen hozzáadva !" });
+    res
+      .status(200)
+      .json({ msg: "Tanár sikeresen hozzáadva !", id: response.id });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
+
   // } else {
   //   // Máskülönben, ha törölve volt, akkor visszaállítjuk aktivra
   //   if (existingteacher.deleted === 1) {

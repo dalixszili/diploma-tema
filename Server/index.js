@@ -11,11 +11,12 @@ import projectsRoute from "./routes/ProjectRoutes.js";
 import settingsRoute from "./routes/SettingRoutes.js";
 import pagesRoute from "./routes/PageRoutes.js";
 import menusRoute from "./routes/MenuRoutes.js";
-import db from "./config/Database.js";
+// import db from "./config/Database.js";
 
 dotenv.config();
 const app = express();
 
+// Szerver első futtataásánál kell használni. Utána nem kötelező, csak ha modosítunk a modellek szerkezetén.
 // (async () => {
 //   await db.sync({ alter: true });
 // })();
@@ -24,8 +25,10 @@ app.use(
   cors({
     credentials: true,
     origin: "http://localhost:3000",
+    // origin: true,
   })
 );
+
 app.use(express.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
@@ -36,6 +39,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: "auto",
+      maxAge: 60 * 60 * 1000,
     },
   })
 );
@@ -50,5 +54,5 @@ app.use(menusRoute);
 app.use(pagesRoute);
 
 app.listen(process.env.APP_PORT, () => {
-  console.log(" The Server is running ...");
+  console.log(` The Server is running on PORT : ${process.env.APP_PORT}`);
 });

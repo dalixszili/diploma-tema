@@ -12,6 +12,12 @@ const ProjectAuthors = db.define(
     author_id: {
       type: DataTypes.INTEGER,
     },
+
+    deleted: {
+      type: DataTypes.INTEGER(1),
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   { timestamps: false, freezeTableName: true, tableName: "tdk_project_authors" }
 );

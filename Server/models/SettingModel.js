@@ -24,6 +24,11 @@ const Settings = db.define(
       allowNull: false,
       defaultValue: new Date(),
     },
+    register_project_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date(),
+    },
     abstract_date: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -37,7 +42,7 @@ const Settings = db.define(
     curr_year: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 2022,
+      // defaultValue: 2024,
     },
     is_active: {
       type: DataTypes.INTEGER(1),

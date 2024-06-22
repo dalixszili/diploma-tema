@@ -38,19 +38,19 @@ const Users = db.define(
     },
     university: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     department: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     profile: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     year: {
       type: DataTypes.INTEGER(2),
-      allowNull: false,
+      // allowNull: false,
     },
     role: {
       type: DataTypes.INTEGER(1),
@@ -59,11 +59,16 @@ const Users = db.define(
     },
     employment: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // allowNull: false,
     },
     job_title: {
       type: DataTypes.STRING,
+      // allowNull: false,
+    },
+    verified: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
     },
     deleted: {
       type: DataTypes.INTEGER(1),

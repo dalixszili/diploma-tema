@@ -2,7 +2,9 @@ import Users from "../UserModel.js";
 import Categories from "../CategoryModel.js";
 import Projects from "../ProjectModel.js";
 import Authors from "../AuthorModel.js";
+import Teachers from "../TeacherModel.js";
 import ProjectAuthors from "../ProjectAuthorModel.js";
+import ProjectTeachers from "../ProjectTeacherModel.js";
 
 // Projektek és kategóriák összekötési modelje
 // One-to-Many association
@@ -39,4 +41,17 @@ Authors.belongsToMany(Projects, {
   foreignKey: "author_id",
 });
 
-export { Categories, Users, Projects, Authors };
+// Projektek és szerzők összekötési modelje
+// Many-to-Many aasociation
+Projects.belongsToMany(Teachers, {
+  through: ProjectTeachers,
+  as: "teachers",
+  foreignKey: "project_id",
+});
+
+Teachers.belongsToMany(Projects, {
+  through: ProjectTeachers,
+  foreignKey: "teacher_id",
+});
+
+export { Categories, Users, Projects, Authors, Teachers };
