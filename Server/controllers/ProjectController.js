@@ -241,7 +241,6 @@ export const getUserProjects = async (req, res) => {
           required: false,
           attributes: ["id", "name", "email", "employment", "job_title"],
         },
-        // { model: Users, as: "user", attributes: ["id", "name", "email"] },
       ],
     });
     res.status(200).json(respone);

@@ -25,6 +25,7 @@ export const getActiveSettings = async (req, res) => {
         is_active: 1,
       },
       attributes: [
+        "website_title",
         "registration_date",
         "abstract_date",
         "project_date",

@@ -16,6 +16,20 @@ export const getUsers = async (req, res) => {
         role: { [Op.ne]: 1 },
         deleted: 0,
       },
+      attributes: [
+        "id",
+        "name",
+        "email",
+        "university",
+        "department",
+        "profile",
+        "year",
+        "role",
+        "employment",
+        "job_title",
+        "verified",
+        "deleted",
+      ],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -31,6 +45,20 @@ export const getUserById = async (req, res) => {
         id: req.params.id,
         deleted: 0,
       },
+      attributes: [
+        "id",
+        "name",
+        "email",
+        "university",
+        "department",
+        "profile",
+        "year",
+        "role",
+        "employment",
+        "job_title",
+        "verified",
+        "deleted",
+      ],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -40,36 +68,32 @@ export const getUserById = async (req, res) => {
 
 // Create User
 export const createUser = async (req, res) => {
-  const {
-    name,
-    email,
-    password,
-    confpassword,
-    university,
-    department,
-    profile,
-    year,
-    employment,
-    job_title,
-  } = req.body;
+  const { name, email, password, confpassword } = req.body;
   const data = req.body;
+
+  const userexists = await User.findOne({
+    where: {
+      email: email,
+      deleted: 1,
+    },
+  });
+
+  if (userexists) {
+    await userexists.destroy();
+  }
+
   if (password !== confpassword)
     return res.status(400).json({ msg: "Confirm password error ! " });
 
   const hashPassword = await argon2.hash(data.password);
   try {
-    await User.create({
+    const user = await User.create({
       name: name,
       email: email,
       password: hashPassword,
-      university: university,
-      department: department,
-      profile: profile,
-      year: year,
-      employment: employment,
-      job_title: job_title,
+      verified: 1,
     });
-    res.status(201).json({ msg: "User created successfully ! " });
+    res.status(201).json({ id: user.id });
   } catch (error) {
     res.status(400).json({ mgs: error.message });
   }

@@ -85,7 +85,7 @@ export const updateMenu = async (req, res) => {
     },
   });
   if (!menuitem) return res.status(404).json({ msg: "Menü nem található !" });
-  const { name = menuitem.name, page_id = menuiten.page_id } = req.body;
+  const { name = menuitem.name, page_id = menuitem.page_id } = req.body;
 
   // A kiválasztott menü adatainak frissitése
   try {

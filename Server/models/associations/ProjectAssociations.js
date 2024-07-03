@@ -6,7 +6,7 @@ import Teachers from "../TeacherModel.js";
 import ProjectAuthors from "../ProjectAuthorModel.js";
 import ProjectTeachers from "../ProjectTeacherModel.js";
 
-// Projektek és kategóriák összekötési modelje
+// Projektek és kategóriák összekötési modellje
 // One-to-Many association
 Projects.belongsTo(Categories, {
   as: "category",
@@ -17,7 +17,7 @@ Categories.hasMany(Projects, {
   foreignKey: "id",
 });
 
-// Projektek és azon felhasználók, amelyek létrehozták azt összekötési modelje
+// Projektek és azon felhasználók, amelyek létrehozták azt összekötési modellje
 // One-to-Many association
 Projects.belongsTo(Users, {
   as: "user",
@@ -28,7 +28,7 @@ Users.hasMany(Projects, {
   foreignKey: "id",
 });
 
-// Projektek és szerzők összekötési modelje
+// Projektek és szerzők összekötési modellje
 // Many-to-Many aasociation
 Projects.belongsToMany(Authors, {
   through: ProjectAuthors,
@@ -41,7 +41,7 @@ Authors.belongsToMany(Projects, {
   foreignKey: "author_id",
 });
 
-// Projektek és szerzők összekötési modelje
+// Projektek és tanárók  összekötési modellje
 // Many-to-Many aasociation
 Projects.belongsToMany(Teachers, {
   through: ProjectTeachers,

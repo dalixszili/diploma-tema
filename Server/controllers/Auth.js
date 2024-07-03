@@ -30,9 +30,6 @@ export const logIn = async (req, res) => {
       where: { user_id: user.id },
     });
     if (token) {
-      // console.log(token.tokenExpires);
-      // console.log(new Date(token.tokenExpires));
-      // console.log(new Date(token.tokenExpires) < new Date());
       if (new Date(token.tokenExpires) < new Date()) {
         await token.update({
           token: crypto.randomBytes(32).toString("hex"),
@@ -233,7 +230,7 @@ export const resetPassword = async (req, res) => {
     res.status(500).json({ msg: error });
   }
 };
-// Jelszó visszaállításást igénylő e-mail küldése
+// Jelszó visszaállítását igénylő e-mail küldése
 export const resetPasswordRequest = async (req, res) => {
   try {
     const { email } = req.body;

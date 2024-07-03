@@ -7,7 +7,6 @@ import {
   getProjects,
   getUserProjects,
   saveProjectFile,
-  updateProject,
   updateProjectAbstract,
   updateProjectTitle,
 } from "../controllers/ProjectController.js";
@@ -15,13 +14,13 @@ import {
   addAuthorToProject,
   deleteAuthor,
 } from "../controllers/ProjectAuthorController.js";
-import multer from "multer";
 import {
   addTeacherToProject,
   deleteTeacher,
 } from "../controllers/ProjectTeacherController.js";
+import multer from "multer";
 
-// Projekt mentése
+// // Projekt mentése
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "public/projects");
@@ -31,7 +30,7 @@ const storage = multer.diskStorage({
   },
 });
 
-export const upload = multer({
+const upload = multer({
   storage: storage,
   // fileFilter: (req, file, cb) => {
   //   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
@@ -49,18 +48,18 @@ router.get("/getuserprojects/:id", getUserProjects);
 router.get("/getprojectbyid/:id", getProjectById);
 router.get("/getprojectbyjudgecategory/:id", getJudgeProjects);
 router.post("/newproject", createProject);
-router.patch("/updateproject/:id", updateProject);
-router.patch("/updateprojectabstract/:id", updateProjectAbstract);
-router.patch("/updateprojecttitle/:id", updateProjectTitle);
-router.post("/newprojectauthor", addAuthorToProject);
-router.patch("/deleteprojectauthor", deleteAuthor);
 router.post("/newprojectteacher", addTeacherToProject);
-router.patch("/deleteprojectteacher", deleteTeacher);
-router.patch("/deleteproject/:id", deleteProject);
+router.post("/newprojectauthor", addAuthorToProject);
 router.post(
   "/saveprojectfile/:id",
   upload.single("project_file"),
   saveProjectFile
 );
+// router.patch("/updateproject/:id", updateProject);
+router.patch("/updateprojectabstract/:id", updateProjectAbstract);
+router.patch("/updateprojecttitle/:id", updateProjectTitle);
+router.patch("/deleteprojectauthor", deleteAuthor);
+router.patch("/deleteprojectteacher", deleteTeacher);
+router.patch("/deleteproject/:id", deleteProject);
 
 export default router;
